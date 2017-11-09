@@ -23,6 +23,10 @@ namespace PRAlgorithmLibrary
             Data = data;
         }
 
-
+        public object this[int col]
+        {
+            get => Data[col];
+            set => Data[col] = value;
+        }
     }
 }

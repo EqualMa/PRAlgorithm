@@ -35,10 +35,13 @@ namespace PRAlgorithmLibrary
 
             object[] data = new object[DataRows.Count];
 
+            int attributeIndex = GetAttributeIndex(attribute);
+            if (attributeIndex < 0) return null;
+
             int i = 0;
-            foreach (var d in DataRows)
+            foreach (var r in DataRows)
             {
-                data[i] = d[attribute];
+                data[i] = r[attributeIndex];
                 i++;
             }
 
@@ -53,6 +56,16 @@ namespace PRAlgorithmLibrary
             }
 
             return false;
+        }
+
+        public int GetAttributeIndex(Attribute attribute)
+        {
+            for (int i = 0; i < Attributes.Length; i++)
+            {
+                if (Attributes[i] == attribute)
+                    return i;
+            }
+            return -1;
         }
 
         public void AddData(object[] data)
