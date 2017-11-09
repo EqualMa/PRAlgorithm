@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRAlgorithm", "PRAlgorithm\PRAlgorithm.csproj", "{E9079580-B1C3-47B7-8A0F-890DCD18C3C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRAlgorithmLibrary", "PRAlgorithmLibrary\PRAlgorithmLibrary.csproj", "{9DA32426-E16E-4CF6-96BF-02053167FBE4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9079580-B1C3-47B7-8A0F-890DCD18C3C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9079580-B1C3-47B7-8A0F-890DCD18C3C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9079580-B1C3-47B7-8A0F-890DCD18C3C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9079580-B1C3-47B7-8A0F-890DCD18C3C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DA32426-E16E-4CF6-96BF-02053167FBE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DA32426-E16E-4CF6-96BF-02053167FBE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DA32426-E16E-4CF6-96BF-02053167FBE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DA32426-E16E-4CF6-96BF-02053167FBE4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FA8AA67-28CC-4E71-BBBA-DB4EB07C5EAE}
+	EndGlobalSection
+EndGlobal
