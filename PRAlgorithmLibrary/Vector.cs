@@ -32,6 +32,8 @@ namespace PRAlgorithmLibrary
             if (v1.Dimension != v2.Dimension)
                 throw new Exception("Vectors are not matched in dimention!");
 
+            if (v1 == v2) return 0;
+
             if (v1.Dimension == 1)
                 return v1[0] > v2[0] ? v1[0] - v2[0] : v2[0] - v1[0];
 
