@@ -66,9 +66,17 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
             return result;
         }
 
-        internal static decimal CalculateAverageDistance(Vector vector, List<Vector> list)
+        public static decimal CalculateAverageDistance(Vector center, List<Vector> list)
         {
-            throw new NotImplementedException();
+
+
+            decimal d = 0;
+            foreach (var v in list)
+            {
+                d += center.CalculateDistance(v);
+            }
+
+            d /= list.Count;
         }
 
         public static int GetMostDistantVectorIndex(Vector center, Vector[] vectors)
