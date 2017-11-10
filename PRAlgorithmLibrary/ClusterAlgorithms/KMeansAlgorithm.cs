@@ -11,12 +11,7 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
         {
             List<Vector> centers = new List<Vector>();
 
-            List<List<Vector>> clusters = new List<List<Vector>>(K);
-
-            for (int i = 0; i < K; i++)
-            {
-                clusters.Add(new List<Vector>());
-            }
+            List<List<Vector>> clusters = null;
 
             //任选K个初始聚类中心
             for (int i = 0; i < K; i++)
@@ -37,7 +32,7 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
                 //计算新聚类中心
                 for (int i = 0; i < centers.Count; i++)
                 {
-                    Vector newCenter = CalculateCenter(clusters[i]);
+                    Vector newCenter = DistanceOperations.CalculateCenter(clusters[i]);
 
                     if (!newCenter.ValueEquals(centers[i]))
                     {
@@ -51,25 +46,6 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
         }
 
 
-        private Vector CalculateCenter(List<Vector> vectors)
-        {
-            if (vectors.Count == 0) return null;
-            if (vectors.Count == 1) return vectors[0];
-
-            int d = vectors[0].Dimension;
-
-            Vector center = Vector.GetZeroVector(d);
-
-
-            foreach (var vector in vectors)
-            {
-                center += vector;
-            }
-
-            center /= vectors.Count;
-
-            return center;
-        }
 
         public void SetParameter(string paraName, decimal paraValue = 0.5M)
         {

@@ -134,5 +134,17 @@ namespace PRAlgorithmLibrary
 
             return r;
         }
+
+        public Vector CloneVector()
+        {
+            Vector newV = new Vector(Dimension);
+
+            for (int i = 0; i < Dimension; i++)
+            {
+                newV[i] = Numbers[i];
+            }
+
+            return newV;
+        }
     }
 }
