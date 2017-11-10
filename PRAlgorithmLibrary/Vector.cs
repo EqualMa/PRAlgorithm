@@ -29,8 +29,7 @@ namespace PRAlgorithmLibrary
         /// <returns></returns>
         public static decimal CalculateDistance(Vector v1, Vector v2)
         {
-            if (v1.Dimension != v2.Dimension)
-                throw new Exception("Vectors are not matched in dimention!");
+            CheckDimentionMatch(v1, v2);
 
             if (v1 == v2) return 0;
 
@@ -50,9 +49,90 @@ namespace PRAlgorithmLibrary
 
         }
 
+        public bool ValueEquals(Vector vector)
+        {
+            if (this == vector) return true;
+
+            try
+            {
+                int d = CheckDimentionMatch(this, vector);
+
+                for (int i = 0; i < d; i++)
+                {
+                    if (this[i] != vector[i])
+                        return false;
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private static int CheckDimentionMatch(Vector v1, Vector v2)
+        {
+            if (v1.Dimension != v2.Dimension)
+                throw new Exception("Vectors are not matched in dimention!");
+
+            return v1.Dimension;
+        }
+
         public decimal CalculateDistance(Vector v2)
         {
             return CalculateDistance(this, v2);
+        }
+
+        public static Vector operator +(Vector v1, Vector v2)
+        {
+            int d = CheckDimentionMatch(v1, v2);
+
+            Vector r = new Vector(d);
+
+            for (int i = 0; i < d; i++)
+            {
+                r[i] = v1[i] + v2[i];
+            }
+
+            return r;
+        }
+        public static Vector operator *(Vector v, decimal n)
+        {
+            int d = v.Dimension;
+
+            Vector r = new Vector(d);
+
+            for (int i = 0; i < d; i++)
+            {
+                r[i] = v[i] * n;
+            }
+
+            return r;
+        }
+        public static Vector operator /(Vector v, decimal n)
+        {
+            int d = v.Dimension;
+
+            Vector r = new Vector(d);
+
+            for (int i = 0; i < d; i++)
+            {
+                r[i] = v[i] / n;
+            }
+
+            return r;
+        }
+
+        public static Vector GetZeroVector(int dimension)
+        {
+            Vector r = new Vector(dimension);
+            for (int i = 0; i < dimension; i++)
+            {
+                r[dimension] = 0;
+            }
+
+            return r;
         }
     }
 }

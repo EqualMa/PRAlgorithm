@@ -48,22 +48,6 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
 
 
 
-        private static List<List<Vector>> Sort(int[] indexes, Vector[] vectors, int centerCount)
-        {
-            List<List<Vector>> result = new List<List<Vector>>(centerCount);
-
-            for (int i = 0; i < result.Count; i++)
-            {
-                result[i] = new List<Vector>();
-            }
-
-            for (int i = 0; i < indexes.Length; i++)
-            {
-                result[indexes[i]].Add(vectors[i]);
-            }
-
-            return result;
-        }
 
         private static bool JudgeEnd(decimal maxD, decimal z, decimal theta)
         {

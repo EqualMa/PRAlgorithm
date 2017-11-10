@@ -12,7 +12,7 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
 
             for (int i = 0; i < vectors.Length; i++)
             {
-                result[i] = new List<Vector>() { vectors[i] };
+                result.Add(new List<Vector>() { vectors[i] });
             }
 
             while (true)
