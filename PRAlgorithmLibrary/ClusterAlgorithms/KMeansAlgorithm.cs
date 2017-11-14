@@ -54,9 +54,17 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
             else throw new ParameterNotExistException(paraName);
         }
 
+        public decimal GetParameterValue(string paraName)
+        {
+            if (paraName == ParaName_K)
+                return K;
+            else throw new ParameterNotExistException(paraName);
+        }
+
         public const string ParaName_K = "K";
 
         public int K { get; set; }
 
+        public List<string> Parameters => new List<string>() { ParaName_K };
     }
 }

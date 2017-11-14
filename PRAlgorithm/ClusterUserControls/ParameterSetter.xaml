@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="PRAlgorithm.ClusterUserControls.ParameterSetter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PRAlgorithm.ClusterUserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="100">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="{Binding Name}"/>
+        <TextBox x:Name="ValueTextBox" Grid.Column="1"
+                 Text="{Binding Value, Mode=OneTime}"
+                 MinWidth="30"
+                 TextChanged="TextBox_TextChanged"/>
+        <TextBlock x:Name="TipText" Grid.Column="2" >输入错误</TextBlock>
+    </Grid>
+
+</UserControl>

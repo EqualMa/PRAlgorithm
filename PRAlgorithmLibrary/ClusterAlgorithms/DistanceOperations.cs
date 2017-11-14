@@ -76,7 +76,7 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
                 d += center.CalculateDistance(v);
             }
 
-            d /= list.Count;
+            return d / list.Count;
         }
 
         public static int GetMostDistantVectorIndex(Vector center, Vector[] vectors)
@@ -153,5 +153,31 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
             return center;
         }
 
+        public static Vector CalculateS(Vector center, List<Vector> list)
+        {
+            Vector S = Vector.GetZeroVector(center.Dimension);
+
+            foreach (var v in list)
+            {
+                Vector d = v - center;
+                for (int i = 0; i < center.Dimension; i++)
+                {
+                    S[i] += d[i] * d[i];
+                }
+            }
+
+            for (int i = 0; i < center.Dimension; i++)
+            {
+                S[i] /= list.Count;
+                S[i] = new decimal(Math.Sqrt(decimal.ToDouble(S[i])));
+            }
+
+            return S;
+        }
+
+        public static List<KeyValuePair<int, decimal>> CalculateAllDistances(List<Vector> centers)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

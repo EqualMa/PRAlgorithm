@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PRAlgorithmLibrary
 {
-    class DataColumn
+    public class DataColumn
     {
         public DataColumn(Attribute attribute, object[] rowsOfData)
         {

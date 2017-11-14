@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PRAlgorithmLibrary
 {
-    class DataMatrix
+    public class DataMatrix
     {
 
         public Attribute[] Attributes { get; private set; }

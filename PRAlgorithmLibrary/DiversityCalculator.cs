@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PRAlgorithmLibrary
 {
-    class DiversityCalculator
+    public class DiversityCalculator
     {
         /// <summary>
         /// 计算一个数据对象和另一个数据对象的相异性

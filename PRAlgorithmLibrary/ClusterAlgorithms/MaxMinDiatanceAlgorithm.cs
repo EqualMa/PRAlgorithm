@@ -47,6 +47,7 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
         public decimal Theta { get; set; } = 0.5M;
 
 
+        public List<string> Parameters => new List<string>() { ParaName_theta };
 
 
         private static bool JudgeEnd(decimal maxD, decimal z, decimal theta)
@@ -55,8 +56,11 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
             return maxD < z * theta;
         }
 
-
-
-
+        public decimal GetParameterValue(string paraName)
+        {
+            if (paraName == ParaName_theta)
+                return Theta;
+            else throw new ParameterNotExistException(paraName);
+        }
     }
 }

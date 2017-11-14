@@ -85,6 +85,9 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
         /// </summary>
         public decimal T { get; set; }
 
+        public List<string> Parameters => new List<string>() { ParaName_T };
+
+
         /// <summary>
         /// 使用最短距离法计算两个聚类间的距离
         /// </summary>
@@ -119,6 +122,13 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
                     return d1 > d2 ? d2 : d1;
                 }
             }
+        }
+
+        public decimal GetParameterValue(string paraName)
+        {
+            if (paraName == ParaName_T)
+                return T;
+            else throw new ParameterNotExistException(paraName);
         }
     }
 }

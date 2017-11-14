@@ -1,0 +1,43 @@
+﻿<Page x:Class="PRAlgorithm.ClusterPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PRAlgorithm"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="400"
+      Title="ClusterPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Margin="5" TextWrapping="Wrap" TextAlignment="Justify" Grid.ColumnSpan="2">
+            请将每一个点的数据以d1, d2, d3, ..., dn的形式输入，每个点之间以空格、回车或tab分隔
+            <Button Margin="0,0,-5,-5" Padding="5,2" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnHideOrShowData_CLicked">隐藏/显示数据</Button></TextBlock>
+        <TextBox Grid.Row="1" x:Name="DataTextBox" Grid.ColumnSpan="2"
+                 VerticalScrollBarVisibility="Auto" Margin="5" 
+                 AcceptsReturn="True" AcceptsTab="True" MinLines="5"/>
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="2" TextWrapping="Wrap">
+            <TextBlock>新增一个算法：</TextBlock>
+            <TextBlock TextWrapping="Wrap">
+                <Button Click="BtnMaxMinDiatance_Clicked" >最大最小距离算法</Button>
+                <Button Click="BtnHierarchical_Clicked">层次聚类算法</Button>
+                <Button Click="BtnKMeans_Clicked">K-means聚类算法</Button>
+                <Button Click="BtnISODATA_Clicked">ISODATA算法</Button>
+            </TextBlock>
+        </TextBlock>
+        <ScrollViewer x:Name="ResultsView" Grid.Row="2" Grid.ColumnSpan="2">
+            
+        </ScrollViewer>
+    </Grid>
+</Page>

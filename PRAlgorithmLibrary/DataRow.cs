@@ -4,9 +4,9 @@ using System.Text;
 
 namespace PRAlgorithmLibrary
 {
-    class DataRow
+    public class DataRow
     {
-        public Attribute[] Attributes { get; };
+        public Attribute[] Attributes { get; }
 
         private Dictionary<Attribute, object> dataDictionary;
 

@@ -4,11 +4,15 @@ using System.Text;
 
 namespace PRAlgorithmLibrary.ClusterAlgorithms
 {
-    interface IClusterAlgorithm
+    public interface IClusterAlgorithm
     {
         List<List<Vector>> Cluster(Vector[] vectors);
 
         void SetParameter(string paraName, decimal paraValue);
+
+        decimal GetParameterValue(string paraName);
+
+        List<string> Parameters { get; }
     }
 
 

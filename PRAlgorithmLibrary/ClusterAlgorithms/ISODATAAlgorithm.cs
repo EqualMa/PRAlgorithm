@@ -14,10 +14,14 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
         public decimal Theta_C { get; set; }
         public int I { get; set; }
 
+        public List<string> Parameters =>
+            new List<string>() { ParaName_Nc,ParaName_Theta_N, ParaName_Theta_S,
+            ParaName_K,ParaName_SplitK,ParaName_Theta_C,ParaName_I};
+
         public void SetParameter(string paraName, decimal paraValue)
         {
             if (paraName == ParaName_Nc)
-                K = decimal.ToInt32(paraValue);
+                Nc = decimal.ToInt32(paraValue);
             else if (paraName == ParaName_Theta_N)
                 Theta_N = decimal.ToInt32(paraValue);
             else if (paraName == ParaName_Theta_S)
@@ -30,6 +34,24 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
                 Theta_C = paraValue;
             else if (paraName == ParaName_I)
                 I = decimal.ToInt32(paraValue);
+            else throw new ParameterNotExistException(paraName);
+        }
+        public decimal GetParameterValue(string paraName)
+        {
+            if (paraName == ParaName_Nc)
+                return Nc;
+            else if (paraName == ParaName_Theta_N)
+                return Theta_N;
+            else if (paraName == ParaName_Theta_S)
+                return Theta_S;
+            else if (paraName == ParaName_K)
+                return K;
+            else if (paraName == ParaName_SplitK)
+                return SplitK;
+            else if (paraName == ParaName_Theta_C)
+                return Theta_C;
+            else if (paraName == ParaName_I)
+                return I;
             else throw new ParameterNotExistException(paraName);
         }
 
@@ -122,7 +144,10 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
 
                     //8 计算每个聚类中样本的标准差向量
                     Vector[] ss = new Vector[Nc];
-                    //TODO
+                    for (int i = 0; i < Nc; i++)
+                    {
+                        ss[i] = DistanceOperations.CalculateS(centers[i], clusters[i]);
+                    }
 
                     //9 求每个标准差向量的最大分量对应的的维数
                     int[] sMaxDimentions = new int[Nc];
@@ -166,7 +191,7 @@ namespace PRAlgorithmLibrary.ClusterAlgorithms
 
                 //11 计算所有聚类中心间的距离，
                 //  (i , j) 对应 i*Nc+j ; n 对应 ( n/Nc , n%Nc )
-                List<KeyValuePair<int, decimal>> ds = CalculateAllDistances(centers);
+                List<KeyValuePair<int, decimal>> ds = DistanceOperations.CalculateAllDistances(centers);
 
                 //12 将小于Theta_C的距离升序排序
                 ds.RemoveAll((kv) => { return kv.Value >= Theta_C; });

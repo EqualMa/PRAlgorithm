@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PRAlgorithmLibrary
 {
-    class Vector
+    public class Vector
     {
         public Vector(int dimension)
         {
@@ -97,6 +97,20 @@ namespace PRAlgorithmLibrary
 
             return r;
         }
+        public static Vector operator -(Vector v1, Vector v2)
+        {
+            int d = CheckDimentionMatch(v1, v2);
+
+            Vector r = new Vector(d);
+
+            for (int i = 0; i < d; i++)
+            {
+                r[i] = v1[i] - v2[i];
+            }
+
+            return r;
+        }
+
         public static Vector operator *(Vector v, decimal n)
         {
             int d = v.Dimension;
@@ -145,6 +159,58 @@ namespace PRAlgorithmLibrary
             }
 
             return newV;
+        }
+
+        /// <summary>
+        /// 把"d1, d2, ..., dn"字符串转换成Vector对象
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static Vector FromString(string s)
+        {
+            var ds = s.Split(',');
+            Vector r = new Vector(ds.Length);
+
+            for (int i = 0; i < ds.Length; i++)
+            {
+                r[i] = decimal.Parse(ds[i].Trim());
+            }
+
+            return r;
+        }
+
+        public static List<Vector> FromStrings(string[] inputs)
+        {
+            List<Vector> vlist = new List<Vector>(inputs.Length);
+
+            foreach (var v in inputs)
+            {
+                string vt = v.Trim();
+                if (!string.IsNullOrEmpty(vt))
+                {
+                    vlist.Add(PRAlgorithmLibrary.Vector.FromString(vt));
+                }
+            }
+
+            return vlist;
+        }
+
+        public override string ToString()
+        {
+            if (Dimension == 1)
+                return "( " + Numbers[0] + " )";
+
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append("( ");
+            for (int i = 0; i < Numbers.Length - 1; i++)
+            {
+                builder.AppendFormat("{0}, ", Numbers[i]);
+            }
+
+            builder.AppendFormat("{0} )", Numbers[Numbers.Length - 1]);
+
+            return builder.ToString();
         }
     }
 }
