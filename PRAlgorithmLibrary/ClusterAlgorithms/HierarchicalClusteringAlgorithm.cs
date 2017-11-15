@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PRAlgorithmLibrary.ClusterAlgorithms
 {
-    class HierarchicalClusteringAlgorithm : IClusterAlgorithm
+    public class HierarchicalClusteringAlgorithm : IClusterAlgorithm
     {
         public List<List<Vector>> Cluster(Vector[] vectors)
         {

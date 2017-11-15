@@ -47,7 +47,7 @@ namespace PRAlgorithm
 
             if (rowCount < 1)
             {
-                ShowUsage();
+                ShowTips(USAGE);
                 return;
             }
 
@@ -73,14 +73,20 @@ namespace PRAlgorithm
             xlWorkBook.Close();
             xlApp.Quit();
 
-            ShowAttriabutes();
         }
 
 
-
-        public void ShowUsage()
+        public const string USAGE =
+            "请将Excel文件中的第一个sheet用于存放数据，第一行是所有属性的名称，" +
+                "下面所有行是一行一行的数据。不要增加其他行。";
+        public void ShowTips(string tips)
         {
-            //TODO
+            TipsTextBlock.Text = tips;
+
+        }
+        public void ClearTips()
+        {
+            ShowTips("");
         }
 
         public DataMatrix Data { get; set; }
@@ -92,16 +98,25 @@ namespace PRAlgorithm
 
         private void BtnOpenFile_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
-
-            dialog.Filter = "Excel文档|*.xlsx";
-            dialog.DefaultExt = "xlsx";
+            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Excel文档|*.xlsx",
+                DefaultExt = "xlsx"
+            };
 
             if (dialog.ShowDialog() is bool result && result)
             {
                 TextBlockFilePath.Text = dialog.FileName;
-                ReadFromXlsx(dialog.FileName);
-
+                try
+                {
+                    ReadFromXlsx(dialog.FileName);
+                    ShowAttriabutes();
+                    ClearTips();
+                }
+                catch (Exception excp)
+                {
+                    ShowTips(excp.Message + Environment.NewLine + USAGE);
+                }
             }
 
 
@@ -122,10 +137,12 @@ namespace PRAlgorithm
 
         private StackPanel CreateAttributeOption(int i)
         {
-            var sp = new StackPanel();
-            sp.Background = new SolidColorBrush(Colors.LightGray);
+            var sp = new StackPanel
+            {
+                Background = new SolidColorBrush(Colors.LightGray),
 
-            sp.Margin = new Thickness(5);
+                Margin = new Thickness(5)
+            };
 
             TextBlock nameText = new TextBlock() { Text = AttributesNames[i] };
 
@@ -148,28 +165,48 @@ namespace PRAlgorithm
         private void AttributeType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var cb = (sender as ComboBox);
+
+            if (cb.SelectedItem == null)
+                return;
+
             StackPanel fsp = cb.Parent as StackPanel;
             var sp = fsp.Children[2] as StackPanel;
             int i = GetIndexOfStackPanel(fsp);
 
-            switch (cb.SelectedIndex)
+            try
             {
-                case 0:
-                    Data.Attributes[i] = new BinaryAttribute(AttributesNames[i]);
-                    ShowAttributeParas(Data.Attributes[i] as BinaryAttribute, sp);
-                    break;
-                case 1:
-                    Data.Attributes[i] = new NorminalAttribute(AttributesNames[i]);
-                    sp.Children.Clear();
-                    break;
-                case 2:
-                    Data.Attributes[i] = new OrdinalAttribute(AttributesNames[i]);
-                    ShowAttributeParas(Data.Attributes[i] as OrdinalAttribute, sp);
-                    break;
-                case 3:
-                    Data.Attributes[i] = new NumericalAttribute(AttributesNames[i]);
-                    sp.Children.Clear();
-                    break;
+                ClearTips();
+                switch (cb.SelectedIndex)
+                {
+                    case 0:
+                        var ba = new BinaryAttribute(AttributesNames[i]);
+                        Data.Attributes[i] = ba;
+                        ba.SetValueFromData(Data[ba].RowsOfData);
+                        ShowAttributeParas(Data.Attributes[i] as BinaryAttribute, sp);
+                        break;
+                    case 1:
+                        var nora = new NorminalAttribute(AttributesNames[i]);
+                        Data.Attributes[i] = nora;
+                        nora.SetNorminalsFromData(Data[nora].RowsOfData);
+                        sp.Children.Clear();
+                        break;
+                    case 2:
+                        Data.Attributes[i] = new OrdinalAttribute(AttributesNames[i]);
+                        ShowAttributeParas(Data.Attributes[i] as OrdinalAttribute, sp);
+                        break;
+                    case 3:
+                        var na = new NumericalAttribute(AttributesNames[i]);
+                        Data.Attributes[i] = na;
+                        na.SetMaxMinuxMinFromData(Data[na].RowsOfData);
+                        sp.Children.Clear();
+                        break;
+                }
+
+            }
+            catch (Exception excp)
+            {
+                ShowTips(excp.Message);
+                cb.SelectedItem = null;
             }
 
         }
@@ -186,18 +223,27 @@ namespace PRAlgorithm
                 Content = "非对称",
                 IsChecked = ba.IsAsymmetry
             };
+
+
             cb.Checked += (s, e) => { ba.IsAsymmetry = true; };
             cb.Unchecked += (s, e) => { ba.IsAsymmetry = false; };
 
             TextBlock t0 = new TextBlock() { Text = "值为0的字符串" };
 
-            TextBox tb0 = new TextBox();
-            tb0.TextChanged += (s, e) => { ba.Value0 = tb0.Text; };
+            TextBlock tb0 = new TextBlock() { Text = ba.Value0 };
 
             TextBlock t1 = new TextBlock() { Text = "值为1的字符串" };
 
-            TextBox tb1 = new TextBox();
-            tb0.TextChanged += (s, e) => { ba.Value1 = tb1.Text; };
+            TextBlock tb1 = new TextBlock() { Text = ba.Value1 }; ;
+
+            Button switchButton = new Button() { Content = "对换" };
+
+            switchButton.Click += (s, e) =>
+            {
+                ba.SwitchValue();
+                tb0.Text = ba.Value0;
+                tb1.Text = ba.Value1;
+            };
 
             sp.Children.Clear();
             sp.Children.Add(cb);
@@ -205,6 +251,8 @@ namespace PRAlgorithm
             sp.Children.Add(tb0);
             sp.Children.Add(t1);
             sp.Children.Add(tb1);
+
+            sp.Children.Add(switchButton);
         }
 
         private void ShowAttributeParas(OrdinalAttribute oa, StackPanel sp)
@@ -234,7 +282,16 @@ namespace PRAlgorithm
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                ClearTips();
+                ResultTextBlock.Text = GetDiversity();
 
+            }
+            catch (Exception excp)
+            {
+                ShowTips(excp.Message);
+            }
         }
 
         private string GetDiversity()
@@ -242,8 +299,10 @@ namespace PRAlgorithm
             StringBuilder stringBuilder = new StringBuilder();
             var dm = DiversityCalculator.CalculateDiversityMatrix(Data);
 
+            int maxWidth = (dm.GetLength(0) - 1).ToString().Length + 3;
+
             //第-1行第-1列
-            stringBuilder.Append("".PadRight(dm.GetLength(0).ToString().Length));
+            stringBuilder.Append("\t".PadLeft(dm.GetLength(0).ToString().Length + 2));
 
             for (int i = 0; i < dm.GetLength(1); i++)
             {
@@ -254,7 +313,7 @@ namespace PRAlgorithm
 
             for (int i = 0; i < dm.GetLength(0); i++)
             {
-                stringBuilder.AppendFormat("{0} |", i.ToString().PadRight(dm.GetLength(0).ToString().Length));
+                stringBuilder.AppendFormat("{0} |\t", i.ToString().PadRight(maxWidth));
                 for (int j = 0; j < dm.GetLength(1); j++)
                 {
                     stringBuilder.Append(decimal.Round(dm[i, j], 2, MidpointRounding.AwayFromZero));

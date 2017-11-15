@@ -7,7 +7,7 @@ using static PRAlgorithmLibrary.ClusterAlgorithms.DistanceOperations;
 namespace PRAlgorithmLibrary.ClusterAlgorithms
 {
     //最大最小距离聚类算法
-    class MaxMinDiatanceAlgorithm : IClusterAlgorithm
+    public class MaxMinDiatanceAlgorithm : IClusterAlgorithm
     {
         public List<List<Vector>> Cluster(Vector[] vectors)
         {

@@ -94,6 +94,16 @@ namespace PRAlgorithmLibrary
             }
             else throw new KeyNotFoundException(xs);
         }
+
+        public void SetNorminalsFromData(object[] data)
+        {
+            foreach (var d in data)
+            {
+                string ds = d.ToString().Trim();
+                if (!Norminals.Contains(ds))
+                    Norminals.Add(ds);
+            }
+        }
     }
 
     /// <summary>
@@ -127,7 +137,50 @@ namespace PRAlgorithmLibrary
         {
             if (x == Value0) return 0;
             if (x == Value1) return 1;
-            throw new KeyNotFoundException(x);
+            throw new KeyNotFoundException("Key \"" + x + "\" not found.");
+        }
+
+        public void SetValueFromData(object[] data)
+        {
+            if (data.Length < 1)
+                return;
+
+            string s0 = null;
+            string s1 = null;
+
+            foreach (var d in data)
+            {
+                string ds = d.ToString();
+
+                if (s0 == null)
+                {
+                    s0 = ds;
+                    continue;
+                }
+
+                if (s0 == ds)
+                    continue;
+
+                if (s1 == null)
+                {
+                    s1 = ds;
+                    continue;
+                }
+
+                if (s1 != ds)
+                    throw new Exception("More than 2 keys are found in the data.");
+
+            }
+
+            Value0 = s0;
+            Value1 = s1;
+        }
+
+        public void SwitchValue()
+        {
+            string b = Value1;
+            Value1 = Value0;
+            Value0 = b;
         }
     }
 
@@ -184,6 +237,35 @@ namespace PRAlgorithmLibrary
             else throw new Exception("Type " + x.GetType() + " not allowed: " + x);
         }
 
+        public static decimal[] GetDecimalsFromData(object[] data)
+        {
+            decimal[] r = new decimal[data.Length];
+            for (int i = 0; i < data.Length; i++)
+            {
+                r[i] = GetDecimalFromIntOrDouble(data[i]);
+            }
+
+            return r;
+        }
+
+        public void SetMaxMinuxMinFromData(object[] data)
+        {
+            if (data == null || data.Length == 0)
+            {
+                MaxMinusMin = NotAssigned;
+            }
+
+            decimal[] ds = GetDecimalsFromData(data);
+            decimal max = ds[0];
+            decimal min = ds[0];
+            foreach (var d in ds)
+            {
+                if (d < min) min = d;
+                if (d > max) max = d;
+            }
+
+            MaxMinusMin = max - min;
+        }
     }
 
 

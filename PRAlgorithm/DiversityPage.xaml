@@ -25,18 +25,22 @@
             <Button x:Name="BtnOpenFile" Click="BtnOpenFile_Click" Padding="5">打开xlsx文件</Button>
             <TextBlock x:Name="TextBlockFilePath" MinWidth="50"></TextBlock>
         </StackPanel>
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="AttributePanel">
             </StackPanel>
         </ScrollViewer>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="5">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Click="Button_Click" HorizontalAlignment="Left" VerticalAlignment="Top" >计算算相异性矩阵</Button>
-            <Grid x:Name="ResultGrid" >
-                <TextBlock x:Name="ResultTextBlock"></TextBlock></Grid>
+            <Button Click="Button_Click" HorizontalAlignment="Left" VerticalAlignment="Top" >计算相异性矩阵</Button>
+            <TextBlock Grid.Row="1" x:Name="TipsTextBlock" Foreground="OrangeRed"/>
+            <ScrollViewer Grid.Row="2"
+                          HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <TextBlock  x:Name="ResultTextBlock" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>

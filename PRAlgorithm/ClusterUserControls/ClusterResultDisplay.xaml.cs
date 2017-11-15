@@ -120,6 +120,17 @@ namespace PRAlgorithm.ClusterUserControls
             return builder.ToString();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            CloseButtonClicked(this);
+        }
+
+        public event Action<ClusterResultDisplay> CloseButtonClicked;
     }
 
 

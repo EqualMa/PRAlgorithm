@@ -8,22 +8,26 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Border BorderBrush="#FF8B8B8B" CornerRadius="15" BorderThickness="1">
-        <StackPanel Margin="10">
-            <TextBlock FontWeight="Bold">Input:</TextBlock>
-            <TextBlock x:Name="InputTextBlock" TextWrapping="Wrap"/>
-            <Separator Margin="0,5,0,5"/>
-            <TextBlock FontWeight="Bold">Cluster Parameters:</TextBlock>
-            <WrapPanel x:Name="ParameterSetters"/>
-            <Button HorizontalAlignment="Center" Padding="10,5,10,5" Click="BtnCluster_Clicked">计算</Button>
-            <Separator Margin="0,5,0,5"/>
-            <TextBlock FontWeight="Bold">Cluster Result:</TextBlock>
-            <TextBlock x:Name="ResultTextBlock" TextWrapping="Wrap"/>
+        <Grid>
+            <StackPanel Margin="10">
+                <TextBlock FontWeight="Bold">Input:</TextBlock>
+                <TextBlock x:Name="InputTextBlock" TextWrapping="Wrap"/>
+                <Separator Margin="0,5,0,5"/>
+                <TextBlock FontWeight="Bold">Cluster Parameters:</TextBlock>
+                <WrapPanel x:Name="ParameterSetters"/>
+                <Button HorizontalAlignment="Center" Padding="10,5,10,5" Click="BtnCluster_Clicked">计算</Button>
+                <Separator Margin="0,5,0,5"/>
+                <TextBlock FontWeight="Bold">Cluster Result:</TextBlock>
+                <TextBlock x:Name="ResultTextBlock" TextWrapping="Wrap"/>
 
-            <Grid x:Name="VisibleResultGrid">
+                <Grid x:Name="VisibleResultGrid">
 
-            </Grid>
-            <TextBlock x:Name="TipsTextBox" Visibility="Collapsed">( 可视化结果仅可用于二维数组 )</TextBlock>
-        </StackPanel>
-
+                </Grid>
+                <TextBlock x:Name="TipsTextBox" Visibility="Collapsed">( 可视化结果仅可用于二维数组 )</TextBlock>
+            </StackPanel>
+            <Button Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Width="20" Height="20" Click="CloseButton_Click">
+                <TextBlock FontFamily="Segoe UI Symbol">&#x2715;</TextBlock>
+            </Button>
+        </Grid>
     </Border>
 </UserControl>

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PRAlgorithmLibrary.ClusterAlgorithms
 {
-    class ISODATAAlgorithm : IClusterAlgorithm
+    public class ISODATAAlgorithm : IClusterAlgorithm
     {
         public int Nc { get; set; }
         public int Theta_N { get; set; }

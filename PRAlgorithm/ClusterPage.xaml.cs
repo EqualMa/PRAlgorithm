@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using PRAlgorithmLibrary.ClusterAlgorithms;
 namespace PRAlgorithm
 {
     /// <summary>
@@ -34,21 +34,24 @@ namespace PRAlgorithm
 
         private void BtnMaxMinDiatance_Clicked(object sender, RoutedEventArgs e)
         {
-
+            CreateNewAlgorithmPanel(new MaxMinDiatanceAlgorithm());
         }
 
         private void BtnHierarchical_Clicked(object sender, RoutedEventArgs e)
         {
+            CreateNewAlgorithmPanel(new HierarchicalClusteringAlgorithm());
 
         }
 
         private void BtnKMeans_Clicked(object sender, RoutedEventArgs e)
         {
+            CreateNewAlgorithmPanel(new KMeansAlgorithm());
 
         }
 
         private void BtnISODATA_Clicked(object sender, RoutedEventArgs e)
         {
+            CreateNewAlgorithmPanel(new ISODATAAlgorithm());
 
         }
 
@@ -57,6 +60,22 @@ namespace PRAlgorithm
             string[] vectors = DataTextBox.Text.Split(' ', '\n', '\t', '\r');
 
             return PRAlgorithmLibrary.Vector.FromStrings(vectors);
+        }
+
+        private void CreateNewAlgorithmPanel(PRAlgorithmLibrary.ClusterAlgorithms.IClusterAlgorithm algorithm)
+        {
+            var resultUIElement = new ClusterUserControls.ClusterResultDisplay()
+            {
+                ClusterAlgorithm = algorithm,
+                InputVectors = GetDataFromInput()
+            };
+            resultUIElement.CloseButtonClicked += ResultUIElement_CloseButtonClicked;
+            ResultsPanel.Children.Add(resultUIElement);
+        }
+
+        private void ResultUIElement_CloseButtonClicked(ClusterUserControls.ClusterResultDisplay obj)
+        {
+            ResultsPanel.Children.Remove(obj);
         }
     }
 

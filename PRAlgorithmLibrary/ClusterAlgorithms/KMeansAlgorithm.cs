@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PRAlgorithmLibrary.ClusterAlgorithms
 {
-    class KMeansAlgorithm : IClusterAlgorithm
+    public class KMeansAlgorithm : IClusterAlgorithm
     {
 
         public List<List<Vector>> Cluster(Vector[] vectors)

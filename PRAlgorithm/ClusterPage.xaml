@@ -36,8 +36,8 @@
                 <Button Click="BtnISODATA_Clicked">ISODATA算法</Button>
             </TextBlock>
         </TextBlock>
-        <ScrollViewer x:Name="ResultsView" Grid.Row="2" Grid.ColumnSpan="2">
+        <StackPanel x:Name="ResultsPanel" Grid.Row="3" Grid.ColumnSpan="2">
             
-        </ScrollViewer>
+        </StackPanel>
     </Grid>
 </Page>
